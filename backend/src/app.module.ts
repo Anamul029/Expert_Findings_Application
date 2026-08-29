@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Organization } from './organizations/organization.entity';
 
 @Module({
   imports: [
@@ -18,9 +19,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         port: configService.get<number>('DB_PORT') || 5432,
         password: configService.get<string>('DB_PASS', ''),
         username: configService.get<string>('DB_USER', 'postgres'),
-        entities: [],
+        entities: [Organization],
         database: configService.get<string>('DB_NAME', 'expert-finder'),
-        synchronize: true,
+        synchronize: false,
         logging: true,
       }),
     }),
