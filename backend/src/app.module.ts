@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Organization } from './organizations/organization.entity';
+import { Organization } from './organizations/entities/organization.entity';
+import { OrganizationsModule } from './organizations/organizations.module';
 
 @Module({
   imports: [
@@ -21,10 +22,11 @@ import { Organization } from './organizations/organization.entity';
         username: configService.get<string>('DB_USER', 'postgres'),
         entities: [Organization],
         database: configService.get<string>('DB_NAME', 'expert-finder'),
-        synchronize: false,
+        synchronize: true,
         logging: true,
       }),
     }),
+    OrganizationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
