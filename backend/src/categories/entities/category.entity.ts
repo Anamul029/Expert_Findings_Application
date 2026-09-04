@@ -1,3 +1,4 @@
+import { Qualification } from 'src/qualifications/entities/qualification.entity';
 import {
   Column,
   CreateDateColumn,
@@ -46,4 +47,7 @@ export class Category {
 
   @OneToMany(() => Category, (category) => category.parent)
   children!: Category[];
+
+  @OneToMany(() => Qualification, (qualification) => qualification.category)
+  qualifications!: Qualification[];
 }

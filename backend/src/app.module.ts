@@ -7,6 +7,8 @@ import { Organization } from './organizations/entities/organization.entity';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/entities/category.entity';
+import { QualificationsModule } from './qualifications/qualifications.module';
+import { Qualification } from './qualifications/entities/qualification.entity';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { Category } from './categories/entities/category.entity';
         port: configService.get<number>('DB_PORT') || 5432,
         password: configService.get<string>('DB_PASS', ''),
         username: configService.get<string>('DB_USER', 'postgres'),
-        entities: [Organization, Category],
+        entities: [Organization, Category, Qualification],
         database: configService.get<string>('DB_NAME', 'expert-finder'),
         synchronize: true,
         logging: true,
@@ -30,6 +32,7 @@ import { Category } from './categories/entities/category.entity';
     }),
     OrganizationsModule,
     CategoriesModule,
+    QualificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
