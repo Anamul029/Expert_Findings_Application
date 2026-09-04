@@ -1,3 +1,4 @@
+import { Price } from 'src/prices/entities/price.entity';
 import { Qualification } from 'src/qualifications/entities/qualification.entity';
 import {
   Column,
@@ -50,4 +51,7 @@ export class Category {
 
   @OneToMany(() => Qualification, (qualification) => qualification.category)
   qualifications!: Qualification[];
+
+  @OneToMany(() => Price, (prices) => prices.category)
+  prices!: Price[];
 }
