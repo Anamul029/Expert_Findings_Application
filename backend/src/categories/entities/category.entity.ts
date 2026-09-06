@@ -8,6 +8,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 export enum CategoryStatus {
@@ -35,6 +36,9 @@ export class Category {
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at!: Date;
+
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  updated_at!: Date;
 
   @Column({ type: 'int', nullable: true })
   parent_id!: number | null;
