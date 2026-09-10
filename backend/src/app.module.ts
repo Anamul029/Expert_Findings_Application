@@ -11,6 +11,8 @@ import { QualificationsModule } from './qualifications/qualifications.module';
 import { Qualification } from './qualifications/entities/qualification.entity';
 import { PricesModule } from './prices/prices.module';
 import { Price } from './prices/entities/price.entity';
+import { LanguagesModule } from './languages/languages.module';
+import { Language } from './languages/entities/language.entity';
 
 @Module({
   imports: [
@@ -26,7 +28,7 @@ import { Price } from './prices/entities/price.entity';
         port: configService.get<number>('DB_PORT') || 5432,
         password: configService.get<string>('DB_PASS', ''),
         username: configService.get<string>('DB_USER', 'postgres'),
-        entities: [Organization, Category, Qualification, Price],
+        entities: [Organization, Category, Qualification, Price, Language],
         database: configService.get<string>('DB_NAME', 'expert-finder'),
         synchronize: true,
         logging: true,
@@ -36,6 +38,7 @@ import { Price } from './prices/entities/price.entity';
     CategoriesModule,
     QualificationsModule,
     PricesModule,
+    LanguagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
