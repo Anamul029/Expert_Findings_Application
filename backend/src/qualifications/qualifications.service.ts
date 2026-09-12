@@ -1,26 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { CreateQualificationDto } from './dto/create-qualification.dto';
-import { UpdateQualificationDto } from './dto/update-qualification.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Qualification } from './entities/qualification.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class QualificationsService {
-  create(createQualificationDto: CreateQualificationDto) {
-    return 'This action adds a new qualification';
-  }
+  constructor(
+    @InjectRepository(Qualification)
+    private qualificationRepository: Repository<Qualification>,
+  ) {}
 
   findAll() {
-    return `This action returns all qualifications`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} qualification`;
-  }
-
-  update(id: number, updateQualificationDto: UpdateQualificationDto) {
-    return `This action updates a #${id} qualification`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} qualification`;
+    return this.qualificationRepository.find();
   }
 }

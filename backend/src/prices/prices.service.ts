@@ -1,26 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePriceDto } from './dto/create-price.dto';
-import { UpdatePriceDto } from './dto/update-price.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Price } from './entities/price.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PricesService {
-  create(createPriceDto: CreatePriceDto) {
-    return 'This action adds a new price';
-  }
+  constructor(
+    @InjectRepository(Price)
+    private priceRepository: Repository<Price>,
+  ) {}
 
   findAll() {
-    return `This action returns all prices`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} price`;
-  }
-
-  update(id: number, updatePriceDto: UpdatePriceDto) {
-    return `This action updates a #${id} price`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} price`;
+    return this.priceRepository.find();
   }
 }

@@ -9,8 +9,12 @@ import { Category } from './entities/category.entity';
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>,
+    private categoryRepository: Repository<Category>,
   ) {}
+
+  findAll() {
+    return this.categoryRepository.find();
+  )
 
   async createACategory(createCategoryDto: CreateCategoryDto) {
     const { parent_id, ...categoryData } = createCategoryDto;
