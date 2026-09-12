@@ -8,7 +8,7 @@ export class LanguagesController {
 
   //  /api/v1/languages
   @Get()
-  async findAll(): Promise<Language[]> {
-    return await this.languagesService.findAll();
+  findAll(): Promise<Language[]> {
+    return this.languagesService.findAll();
   }
 }

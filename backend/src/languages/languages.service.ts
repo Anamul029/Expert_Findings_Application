@@ -11,7 +11,7 @@ export class LanguagesService {
     private languageRepository: Repository<Language>,
   ) {}
 
-  async findAll(): Promise<Language[]> {
+  findAll(): Promise<Language[]> {
     return this.languageRepository.find();
   }
 }
