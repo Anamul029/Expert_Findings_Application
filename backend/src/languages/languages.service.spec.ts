@@ -1,33 +1,30 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { LanguagesService } from './languages.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Language } from './entities/language.entity';
 import { Repository } from 'typeorm';
-import { OrganizationsService } from './organizations.service';
-import { Organization } from './entities/organization.entity';
 
-// Mock the entire @nestjs/typeorm module to avoid ESM loading issues
 jest.mock('@nestjs/typeorm', () => ({
   InjectRepository: jest.fn().mockImplementation(() => jest.fn()),
   getRepositoryToken: jest.fn().mockReturnValue('mock-token'),
   TypeOrmModule: { forFeature: jest.fn() },
 }));
 
-// Create the fake repository
 const mockRepository = {
   find: jest.fn(),
 };
 
-describe('OrganizationsService', () => {
-  let service: OrganizationsService;
+describe('LanguagesService', () => {
+  let service: LanguagesService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        OrganizationsService,
+        LanguagesService,
         {
-          provide: getRepositoryToken(Organization),
+          provide: getRepositoryToken(Language),
           useValue: mockRepository,
         },
-        //Provide the Repository class token as a fallback
         {
           provide: Repository,
           useValue: mockRepository,
@@ -35,26 +32,28 @@ describe('OrganizationsService', () => {
       ],
     }).compile();
 
-    service = module.get<OrganizationsService>(OrganizationsService);
+    service = module.get<LanguagesService>(LanguagesService);
   });
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should return an array of organizations', async () => {
+  it('Should return an array of languages', async () => {
     // Arrange
-    const fakeOrganizations: Organization[] = [
-      { id: 1, name: 'Google', type: 'Tech' },
-      { id: 2, name: 'Microsoft', type: 'Tech' },
+    const fakeLanguages: Language[] = [
+      { id: 1, name: 'Bnglish' },
+      { id: 3, name: 'Aangla' },
+      { id: 2, name: 'Erabic' },
     ];
-    mockRepository.find.mockResolvedValue(fakeOrganizations);
 
-    // Act
+    mockRepository.find.mockResolvedValue(fakeLanguages);
+
+    // ACT
     const result = await service.findAll();
 
-    // Assert
-    expect(result).toEqual(fakeOrganizations);
+    // ASSERT
+    expect(result).toEqual(fakeLanguages);
     expect(mockRepository.find).toHaveBeenCalledTimes(1);
   });
 
@@ -65,5 +64,9 @@ describe('OrganizationsService', () => {
 
     // Act & Assert
     await expect(service.findAll()).rejects.toThrow('Database connection lost');
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 });
