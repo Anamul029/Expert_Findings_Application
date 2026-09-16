@@ -9,7 +9,11 @@ import { Category } from './entities/category.entity';
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
+<<<<<<< HEAD
+    private readonly categoryRepository: Repository<Category>,
+=======
     private categoryRepository: Repository<Category>,
+>>>>>>> 7d368df0d2a96e4834a10d4fbcad582c7d55c1fa
   ) {}
 
   findAll() {
