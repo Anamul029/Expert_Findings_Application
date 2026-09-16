@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 
@@ -8,6 +9,33 @@ export class CategoriesController {
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
+=======
+import { Controller, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
+
+import { CategoriesService } from './categories.service';
+
+@Controller({ path: 'categories', version: '1' })
+export class CategoriesController {
+  constructor(private readonly categoriesService: CategoriesService) {}
+
+@Controller('categories')
+export class CategoryController {
+  constructor(private readonly categoryService: CategoriesService) {}
+
+  @Post()
+  create(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.categoryService.createACategory(createCategoryDto);
+>>>>>>> 7d368df0d2a96e4834a10d4fbcad582c7d55c1fa
   }
 
   @Get()
