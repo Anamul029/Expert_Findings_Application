@@ -1,17 +1,16 @@
 import {
   IsEnum,
   IsInt,
-  IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
-
 import { CategoryStatus } from '../entities/category.entity';
 
 export class CreateCategoryDto {
   @IsString()
-  @IsNotEmpty()
+  @MinLength(1)
   @MaxLength(255)
   name!: string;
 
@@ -25,5 +24,5 @@ export class CreateCategoryDto {
 
   @IsInt()
   @IsOptional()
-  parent_id?: number | null;
+  parent_id?: number;
 }

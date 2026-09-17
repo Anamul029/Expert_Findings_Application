@@ -21,11 +21,11 @@ export class Category {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'varchar', length: 255, unique: true })
+  @Column({ type: 'varchar', length: 255 })
   name!: string;
 
   @Column({ type: 'text', nullable: true })
-  description!: string | null;
+  description!: string;
 
   @Column({
     type: 'enum',
@@ -48,7 +48,7 @@ export class Category {
     nullable: true,
   })
   @JoinColumn({ name: 'parent_id' })
-  parent!: Category | null;
+  parent!: Category;
 
   @OneToMany(() => Category, (category) => category.parent)
   children!: Category[];
