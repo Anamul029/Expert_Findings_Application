@@ -1,8 +1,10 @@
 import { Category } from 'src/categories/entities/category.entity';
+import { Expert } from 'src/experts/entities/expert.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -24,4 +26,8 @@ export class Price {
   })
   @JoinColumn({ name: 'category_id' })
   category!: Category;
+
+  // inverse side of Expert M:N via expert_prices pivot
+  @ManyToMany(() => Expert, (expert) => expert.prices)
+  experts?: Expert[];
 }
