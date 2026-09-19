@@ -17,6 +17,8 @@ import { Qualification } from './qualifications/entities/qualification.entity';
 import { QualificationsModule } from './qualifications/qualifications.module';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
+import { ExpertsModule } from './experts/experts.module';
+import { Expert } from './experts/entities/expert.entity';
 
 @Module({
   imports: [
@@ -40,6 +42,7 @@ import { UserModule } from './user/user.module';
           User,
           Otp,
           Language,
+          Expert,
         ],
         database: configService.get<string>('DB_NAME', 'expert-finder'),
         synchronize: true,
@@ -53,6 +56,7 @@ import { UserModule } from './user/user.module';
     LanguagesModule,
     UserModule,
     OtpModule,
+    ExpertsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
