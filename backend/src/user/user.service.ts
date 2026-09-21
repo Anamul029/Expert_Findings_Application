@@ -13,7 +13,8 @@ export class UserService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    const user = this.userRepo.create(createUserDto);
+    return this.userRepo.save(user);
   }
 
   findAll() {
@@ -28,8 +29,14 @@ export class UserService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.userRepo.preload({ id, ...updateUserDto });
+
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    return this.userRepo.save(user);
   }
 
   remove(id: number) {
