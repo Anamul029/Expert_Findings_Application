@@ -2,7 +2,7 @@
 
 > **What you'll get:** a mental map of the entire backend build, the rules I follow when writing code in these lessons, and how to actually use this material so you don't just *read* it and forget it.
 >
-> **What you should do first:** open `Expert Finding.md`, `er-2.drawio`, `join-lesson.md`, `searching/search-feature-planning.md`, and `searching/search-api-design.md` in tabs. We will cross them constantly. If you have not read `join-lesson.md` yet, stop here and read it end-to-end. Everything in Lessons 05–40 assumes you understand 1:1, 1:N, M:N, onDelete, and indexes.
+> **What you should do first:** open `Expert Finding.md`, `er-2.drawio`, `searching/search-feature-planning.md`, and `searching/search-api-design.md` in tabs. We will cross them constantly. **Before Lesson 05**, read Lessons 02–04 end-to-end — they are the distilled version of what used to be `join-lesson.md`. Everything in Lessons 05–40 assumes you understand 1:1, 1:N, M:N, onDelete, indexes, and how TypeORM emits joins.
 
 ---
 
@@ -217,14 +217,28 @@ To manage expectations:
 
 ---
 
-## 8. Self-check before Lesson 05
+## 8. Self-check before Lesson 02
 
 Answer these in your own words. If you can't, go re-read the source.
 
-1. Look at `er-2.drawio` (or `join-lesson.md` §3). Which tables currently in `backend/src/` are missing from the diagram's intended schema? (Hint: there's no `Profile` entity yet.)
+1. Look at `er-2.drawio`. Which tables currently in `backend/src/` are missing from the diagram's intended schema? (Hint: there's no `Profile` entity yet.)
 2. Why is the current `Otp` entity (`OneToOne` to `User`) broken for a "resend OTP after 1 minute" feature? Write the failure scenario in two sentences.
 3. Look at `app.module.ts`. What is the single biggest reason `synchronize: true` will hurt you, the moment this codebase goes near production? (One sentence.)
 4. From `Expert Finding.md`, list every auth endpoint and the HTTP status it returns.
 5. From `search-feature-planning.md` §13, what are the four stages the search request must pass through before results are returned?
 
-When you can answer all five without re-opening the files, go to **Lesson 05**.
+When you can answer all five without re-opening the files, go to **Lesson 02**.
+
+---
+
+## 9. Self-check between Lesson 04 and Lesson 05
+
+These check your understanding of the cardinalities and joins material. Answer before moving on to schema work.
+
+1. From Lesson 02, name the owning side of `Experts → Categories`. Justify in one sentence.
+2. From Lesson 02, why does `@JoinColumn` go on the `@ManyToOne` side and never on the `@OneToMany` side?
+3. From Lesson 03, what `onDelete` should `experts.category_id` use, and what's the failure scenario if you choose `CASCADE`?
+4. From Lesson 03, why is `nullable: true` required on `categories.parent_id`?
+5. From Lesson 04, what's the difference in SQL emitted by `relations: ['a']` vs `leftJoinAndSelect('x.a', 'a')`? Which is preferred for list endpoints?
+
+If you can answer all five without re-opening the lesson files, go to **Lesson 05**.
